@@ -39,6 +39,10 @@ from osgeo import gdal, ogr, osr
 import scipy.ndimage as nd
 from os.path import join as pjoin
 
+# Add colours for more explicit warnings
+class bcolors:
+    WARNING = '\033[93m'
+    ENDC = '\033[0m'
 
 # Returns true if coordinate is land
 def TestLand(lon, lat):
@@ -516,7 +520,7 @@ def fusion_mnt(liste_fic_mnt, liste_fic_eau, liste_centre_eau, rep_mnt, rep_swbd
         for i, racine_nom_eau in enumerate(liste_fic_eau):
             print(racine_nom_eau)
             if not os.path.exists(os.path.join(rep_swbd, racine_nom_eau + ".gml")):
-                print("WARNING: No SBWD file found for: " + racine_nom_eau + " at: " + os.path.join(rep_swbd, racine_nom_eau + ".gml"))
+                print(bcolors.WARNING + "WARNING: No SBWD file found for: " + racine_nom_eau + " at: " + os.path.join(rep_swbd, racine_nom_eau + ".gml") + bcolors.ENDC)
             shp = glob.glob(os.path.join(working_dir, racine_nom_eau + "*.shp"))
             # if shp file does not exist
             if len(shp) == 0:
