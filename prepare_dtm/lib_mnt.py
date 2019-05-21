@@ -515,10 +515,12 @@ def fusion_mnt(liste_fic_mnt, liste_fic_eau, liste_centre_eau, rep_mnt, rep_swbd
         # remplissage de ce fichier avec les fichiers SWBD
         for i, racine_nom_eau in enumerate(liste_fic_eau):
             print(racine_nom_eau)
+            if not os.path.exists(os.path.join(rep_swbd, racine_nom_eau + ".gml")):
+                print("WARNING: No SBWD file found for: " + racine_nom_eau + " at: " + os.path.join(rep_swbd, racine_nom_eau + ".gml"))
             shp = glob.glob(os.path.join(working_dir, racine_nom_eau + "*.shp"))
             # if shp file does not exist
             if len(shp) == 0:
-                print('missing SWBD watr file : ', racine_nom_eau)
+                print('missing SWBD water file : ', racine_nom_eau)
 
                 # test if center is water or land
                 land = TestLand(liste_centre_eau[i][0], liste_centre_eau[i][1])
